@@ -22,6 +22,7 @@ const Contract = () => {
 
     const getContracts = async () => {
         try {
+
             const { data } = await axios.get("/contracts/current-user");
             setContracts(data.contracts);
             console.log(data);
