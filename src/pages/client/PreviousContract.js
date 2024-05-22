@@ -3,6 +3,7 @@ import axios from "axios";
 import Layout from "../../components/Layout";
 import { Select } from "antd";
 import moment from "moment";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import ClientMenu from "../../components/ClientMenu";
 
 const { Option } = Select;
@@ -22,10 +23,8 @@ const Contract = () => {
 
     const getContracts = async () => {
         try {
-
             const { data } = await axios.get("/contracts/current-user");
             setContracts(data.contracts);
-            console.log(data);
         } catch (error) {
             console.log(error);
         }
@@ -43,6 +42,7 @@ const Contract = () => {
             console.log(error);
         }
     };
+
     const handleSubmissionStatusChange = async (contractId, value) => {
         try {
             await axios.put(`/contracts/submission`, {
@@ -55,17 +55,6 @@ const Contract = () => {
             console.log(error);
         }
     };
-
-    // const handleSubmissionStatusChange = async (contractId, value) => {
-    //     try {
-    //         await axios.put(`/api/v1/contract/change-submission-status/${contractId}`, {
-    //             submissionStatus: value,
-    //         });
-    //         getContracts();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
     return (
         <Layout title={"All Contracts Data"}>
@@ -98,7 +87,9 @@ const Contract = () => {
                                             <td>{index + 1}</td>
                                             <td>{contract.freelancerId}</td>
                                             <td>{contract.clientId}</td>
-                                            <td>{contract.title}</td>
+                                            <td>
+                                                <Link to={`/client/contracts/${contract._id}`}>{contract.title}</Link>
+                                            </td>
                                             <td>{contract.description}</td>
                                             <td>{contract.amount}</td>
                                             <td>{moment(contract.deadline).format("MMMM D, YYYY")}</td>

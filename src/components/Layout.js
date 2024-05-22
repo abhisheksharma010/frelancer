@@ -9,7 +9,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
 
     const handleScroll = () => {
         const scrollY = window.scrollY;
-        const showThreshold = 200; // Adjust this value as needed
+        const showThreshold = 200;
         setIsVisible(scrollY > showThreshold);
     };
 
@@ -68,10 +68,10 @@ const Layout = ({ children, title, description, keywords, author }) => {
 };
 
 Layout.defaultProps = {
-    title: "Ecommerce app - shop now",
+    title: "Trust-Block",
     description: "mern stack project",
-    keywords: "mern,react,node,mongodb",
-    author: "Techinfoyt",
+    keywords: "freelance,web development,android development",
+    author: "Abhishek Sharma",
 };
 
 export default Layout;

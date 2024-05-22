@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link
 import Layout from "../../components/Layout";
-import FreelancerMenu from "../../components/FreelancerMenu"; // Import FreelancerMenu component
+import FreelancerMenu from "../../components/FreelancerMenu";
 
 const FreelancerOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -12,8 +13,9 @@ const FreelancerOrders = () => {
 
     const fetchOrders = async () => {
         try {
-            const { data } = await axios.get("/api/v1/freelancer/orders");
-            setOrders(data);
+            const { data } = await axios.get("/contracts/current-user");
+            console.log(data);
+            setOrders(data.contracts);
         } catch (error) {
             console.log(error);
         }
@@ -31,26 +33,34 @@ const FreelancerOrders = () => {
         }
     };
 
+    // Define handleGetContractsClick function if needed
+    const handleGetContractsClick = () => {
+        // Define functionality here
+    };
+
     return (
-        <Layout title={"Freelancer Orders"}>
-            <div className="container-fluid m-3 p-3 dashboard">
-                <div className="row align-items-start">
-                    <div className="col-md-3 d-flex align-items-start">
-                        <FreelancerMenu />
-                    </div>
-                    <div className="col-md-9"> {/* Adjusted column size */}
-                        <div className="mt-5">
-                            <h1 className="text-center">Freelancer Orders</h1>
-                            {orders.map((order, index) => (
-                                <div className="border shadow mb-3" key={order._id}>
-                                    {/* Render order details */}
-                                    <p>Order Details</p>
-                                    {/* Example: <p>{order.property}</p> */}
-                                    {/* Example: <button onClick={() => handleChange(order._id, newValue)}>Change Status</button> */}
+        <Layout title="All Contract List">
+            <div className="row">
+                <div className="col-md-3 mt-5">
+                    <FreelancerMenu />
+                </div>
+                <div className="col-md-9 mt-5">
+                    {/* Button to trigger getContractsClick */}
+                    {/* <button className="btn btn-primary mb-3" onClick={handleGetContractsClick}>Get Contracts</button> */}
+                    <div className="row">
+                        {orders.map((contract) => (
+                            <div className="col-md-4 mb-4" key={contract._id}>
+                                <div className="card h-100">
+                                    <div className="card-body">
+                                        <h5 className="card-title">{contract.name}</h5>
+                                        <p className="card-text">{contract.description}</p>
+                                        {/* Use Link to navigate to contract details */}
+                                        <Link to={`/client/${contract._id}`} className="btn btn-outline-primary">Update</Link>
+                                    </div>
                                 </div>
-                            ))}
-                            {orders.length === 0 && <p>No orders available.</p>}
-                        </div>
+                            </div>
+                        ))}
+                        {orders.length === 0 && <p>No contracts available.</p>}
                     </div>
                 </div>
             </div>

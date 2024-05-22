@@ -180,9 +180,13 @@ const HomePage = () => {
                                 <div className="custom-card">
                                     <img className="category-img" src={category.bannerImage} alt={category.title} />
                                     <div className="card-body">
-                                        <Link to={category.link} className="shop-now">{category.title}</Link>
+                                        <Link to={`/category/${category.slug}`} className="category-link">
+
+                                            <p className="shop-now">{category.title}</p>
+                                        </Link>
                                     </div>
                                 </div>
+
                             </div>
                         ))}
                     </div>
@@ -223,7 +227,6 @@ const HomePage = () => {
 
                             {open && (
                                 <div>
-                                    {/* Your filter input components or any additional content goes here */}
                                 </div>
                             )}
 

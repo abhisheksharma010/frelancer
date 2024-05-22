@@ -84,3 +84,33 @@
 .submit-proposal-button:hover {
   background-color: #0056b3;
 }
+
+.previous-proposal {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.delete-proposal-button {
+  margin-top: 10px;
+}
+
+.no-proposal {
+  margin-top: 20px;
+  color: #888;
+}
+.toggle-previous-proposal-btn {
+  margin-top: 20px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+}
+
+.toggle-previous-proposal-btn:hover {
+  background-color: #e0e0e0;
+}

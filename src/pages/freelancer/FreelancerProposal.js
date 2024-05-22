@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 import Layout from "../../components/Layout";
-import { Select, Spin, message } from "antd";
+import { Select, Spin, message, Button, Popconfirm } from "antd";
 import FreelancerMenu from '../../components/FreelancerMenu';
 
 const { Option } = Select;
@@ -26,8 +26,6 @@ const FreelancerProposals = () => {
         setLoading(true);
         try {
             const { data } = await axios.get("/proposals/getAll");
-            console.log("reac");
-            console.log(data);
             setProposals(data.proposals);
         } catch (error) {
             console.log(error);
@@ -54,6 +52,20 @@ const FreelancerProposals = () => {
         }
     };
 
+    const handleDeleteProposal = async (proposalId) => {
+        setLoading(true);
+        try {
+            await axios.delete(`/proposals/remove/${proposalId}`);
+            message.success("Proposal deleted successfully");
+            fetchProposals();
+        } catch (error) {
+            console.error(error);
+            message.error("Failed to delete proposal");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Layout title={"Proposals"}>
             <div className="container-fluid m-3 p-3 dashboard">
@@ -62,7 +74,6 @@ const FreelancerProposals = () => {
                         <FreelancerMenu />
                     </div>
                     <div className="col-md-9">
-                        sfsfwer
                         <div className="mt-5 row dashboard" style={{ alignItems: 'flex-start' }}>
                             <div className="col-md-12">
                                 <h1 className="text-center">Proposals</h1>
@@ -75,18 +86,15 @@ const FreelancerProposals = () => {
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">#</th>
-                                                        <th scope="col">Status</th>
                                                         <th scope="col">Amount</th>
                                                         <th scope="col">Deadline</th>
-                                                        {/* Add more table headings as needed */}
+                                                        <th scope="col">Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td>{index + 1}</td>
-                                                        <td>
-                                                            {proposal.selected}
-                                                        </td>
+
                                                         <td>
                                                             {proposal.amount}
 
@@ -95,11 +103,19 @@ const FreelancerProposals = () => {
                                                             {proposal.deadline}
 
                                                         </td>
-                                                        {/* Render other data fields */}
+                                                        <td>
+                                                            <Popconfirm
+                                                                title="Are you sure you want to delete this proposal?"
+                                                                onConfirm={() => handleDeleteProposal(proposal._id)}
+                                                                okText="Yes"
+                                                                cancelText="No"
+                                                            >
+                                                                <Button type="danger">Delete</Button>
+                                                            </Popconfirm>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            {/* Render additional details */}
                                         </div>
                                     ))
                                 )}

@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import Layout from '../../components/Layout'
 import axios from "axios";
@@ -14,7 +13,6 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // form function
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +39,7 @@ const Login = () => {
         }
     };
     return (
-        <Layout title="Register - Ecommer App">
+        <Layout title="Trust-Block">
             <div className="form-container ">
                 <form onSubmit={handleSubmit}>
                     <h4 className="title">LOGIN FORM</h4>
@@ -69,26 +67,14 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <div className="mb-3">
-                        <button
-                            type="button"
-                            className="btn "
-                            onClick={() => {
-                                navigate("/forgot-password");
-                            }}
-                        >
-                            Forgot Password
-                        </button>
-                    </div>
+
 
                     <button type="submit" className="btn btn-danger login">
                         LOGIN
                     </button>
 
                 </form>
-                {/* <button type="submit" className="btn btn-primary login" onClick={googlesign}>
-          Google
-        </button> */}
+
             </div>
         </Layout>
     );
